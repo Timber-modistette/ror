@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @products_bought = current_user.buys
     @products_sold = Buy.where(product:current_user.product_ids)
+    @sold_sum = 0
+    @products_sold.each{ |product| @sold_sum += product.product.amount }
     @not_sold = current_user.products.where.not(id:Buy.where(product: current_user.product_ids).pluck('product_id'))
     @total_bought = current_user.products_bought.pluck(:amount)
     @total = 0;
