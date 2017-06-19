@@ -20,6 +20,8 @@
   <tr>
     <td><%= product.name %></td>
     <td><%= product.created_at %></td>
+    <td><%= product.amount %></td>
+
     <td><a data-confirm='Are you sure you want to delete product?' rel='nofollow' data-method='delete' href="/products/<%= product.id %>">Delete Product</a></td>
   </tr>
   <% end %>
