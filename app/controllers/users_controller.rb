@@ -19,7 +19,11 @@ class UsersController < ApplicationController
     @products_bought = current_user.buys
     @products_sold = Buy.where(product:current_user.product_ids)
     @not_sold = current_user.products.where.not(id:Buy.where(product: current_user.product_ids).pluck('product_id'))
-  
+    @total_bought = current_user.products_bought.pluck(:amount)
+    @total = 0;
+    current_user.products_bought.pluck(:amount).each do |amount|
+      @total = amount + @total
+    end
   end
   private
   def register_params
