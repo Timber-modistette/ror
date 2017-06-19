@@ -1,0 +1,62 @@
+<h1>welcome, <%= @current_user.first_name %></h1>
+<a href="/products">Go to all Products</a>
+<h2>Sell a Product</h2>
+<form class="" action="/products" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="text" name="product[name]" placeholder="Name of product">
+  <input type="number" name="product[amount]" placeholder"Price of product">
+  <input type="hidden" name="product[user]" value="<%= @current_user.id %>">
+  <input type="submit" value="sell">
+</form>
+<h2>Products not sold</h2>
+<table>
+  <tr>
+    <th>product</th>
+    <th>date posted</th>
+    <th>amount</th>
+    <th>action</th>
+  </tr>
+  <% @not_sold.each do |product|%>
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.created_at %></td>
+    <td><a data-confirm='Are you sure you want to delete product?' rel='nofollow' data-method='delete' href="/products/<%= product.id %>">Delete Product</a></td>
+  </tr>
+  <% end %>
+</table>
+<h2>Products sold</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Buyer</th>
+    <th>Amount</th>
+  </tr>
+  <% @products_sold.each do |product| %>
+  <tr>
+    <td><%= product.product.name%></td>
+    <td><%= product.created_at%></td>
+    <td><%= product.product.user.first_name%></td>
+    <td>$<%= product.product.amount%>.00</td>
+
+  </tr>
+<% end %>
+</table>
+
+<h2>Products Bought</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Seller</th>
+    <th>Amount</th>
+  </tr>
+  <% @products_bought.each do |product| %>
+  <tr>
+    <td><%= product.product.name%></td>
+    <td><%= product.created_at%></td>
+    <td><%= product.user.first_name%></td>
+    <td>$<%= product.product.amount%>.00</td>
+  </tr>
+  <% end %>
+</table>

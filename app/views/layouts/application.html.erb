@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RorExam</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+  <% if flash[:notice]%>
+    <h3><%= flash[:notice]%></h3>
+  <% end %>
+  <% if current_user %>
+  <a data-confirm='Are you sure?' rel='nofollow' data-method='delete' href="/sessions/<%= current_user.id %>">Logout</a>
+    <!-- <form action="/sessions/<%=current_user.id%>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Log Out">
+    </form> -->
+  <% end %>
+  <br>
+  <br>
+  <br>
+  <br>
+<%= yield %>
+
+</body>
+</html>
